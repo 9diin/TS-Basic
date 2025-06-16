@@ -33,8 +33,6 @@ developer.toString(); // OK
 developer.toUpperCase(); // Error: 'number' 형식에 'toUpperCase' 속성이 없습니다.
 developer.toFixed(); // Error: 'string' 형식에 'toFixed' 속성이 없습니다.
 
-// ====================================================================================================
-
 // 2. 내로잉
 // 값이 정의, 선언 혹은 이전에 유추된 것보다 더 구체적인 타입임을 코드에서 유추하는 것입니다.
 // 타입스크립트가 값의 타입이 이전에 알려진 것보다 더 좁혀졌다는 것을 알게 되면 값을 더 구체적인 타입으로 취급합니다.
@@ -78,8 +76,6 @@ if (!(typeof researcher === "string")) {
 
 typeof researcher === "string" ? researcher.toUpperCase() : researcher.toFixed();
 
-// ====================================================================================================
-
 // 3. 리터럴 타입
 // 변수를 const로 선언하고 직접 리터럴 값을 할당하면 타입스크립트는 해당 변수를 할당된 리터럴 값으로 유추합니다.
 const planner = "개발자 9Diin";
@@ -93,8 +89,6 @@ lifespan = 90;
 lifespan = "ongoing";
 lifespan = "uncertain";
 lifespan = true; // Error: 'true' 형식은 'number' | "ongoing" | "uncertain" 형식에 할당할 수 없습니다.
-
-// ====================================================================================================
 
 // 4. 초깃값이 없는 변수
 // 자바스크립트에서 초깃값이 없는 변수는 기본적으로 undefined가 됩니다.
