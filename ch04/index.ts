@@ -1,9 +1,10 @@
 // 함수
-// 한쪽 끝에는 함수 인수가 있고, 다른 쪽 끝에는 반환 타입이 있습니다.
+// 한쪽 끝에는 함수 인수/인자가 있고, 다른 쪽 끝에는 반환 타입이 있습니다.
 
 // 1. 함수 매개변수
 // sing 함수를 작성한 개발자가 song 매개변수를 제공하기 위해 의도한 값의 타입은 무엇일까요?
-// 명시적 타입 정보가 선언되지 않으면 절대 타입을 알 수 없습니다. 타입스크립트가 이를 any 타입으로 간주하며 매개변수의 타입은 무엇이든 될 수 있습니다.
+// 명시적 타입 정보가 선언되지 않으면 절대 타입을 알 수 없습니다.
+// 타입스크립트가 이를 any 타입으로 간주하며 매개변수의 타입은 무엇이든 될 수 있습니다.
 
 function sing1(song) {
     console.log(`Singing: ${song}!`);
@@ -13,48 +14,43 @@ function sing2(song: string) {
     console.log(`Singing: ${song}!`);
 }
 
-// ====================================================================================================
-
 // 1.1 필수 매개변수
-// 자바스크립트에서는 인수의 수와 상관없이 함수를 호출할 수 있습니다. 하지만 타입스크립트는 함수에 선언된 모든 매개변수가 필수라고 가정합니다.
+// 자바스크립트에서는 인수의 수와 상관없이 함수를 호출할 수 있습니다.
+// 하지만 타입스크립트는 함수에 선언된 모든 매개변수가 필수라고 가정합니다.
 
 function sing3(first: string, second: string) {
     console.log(`${first} | ${second}`);
 }
-
-sing3("첫 번째 인수"); // 2개의 인수가 필요한데 1개를 가져왔습니다.
-sing3("첫 번째 인수", "두 번째 인수"); // OK
-sing3("첫 번째 인수", "두 번째 인수", "세 번째 인수"); // 2개의 인수가 필요한데 3개를 가져왔습니다.
+sing3("첫 번째 인자"); // Error: 2개의 인수가 필요한데 1개를 가져왔습니다.
+sing3("첫 번째 인자", "두 번째 인자"); // OK
+sing3("첫 번째 인자", "두 번째 인자", "세 번째 인자"); // Error: 2개의 인수가 필요한데 3개를 가져왔습니다.
 
 // 매개변수는 인수로 받은 것으로 예상되는 함수의 선언을 나타냅니다.
-// 인수는 함수를 호출할 때 매개변수에 제공되는 값을 나타냅니다.
+// 인수는 함수를 호출할 때, 매개변수에 제공되는 값을 나타냅니다.
 
 function fn(x: string, y: string, z: string) {
-    console.log("x:", x);
-    console.log("y:", y);
-    console.log("z:", z);
+    console.log("x: ", x);
+    console.log("y: ", y);
+    console.log("z: ", z);
 }
 // 위 함수에서 x, y, z는 매개변수라고 하고
 
-fn("G-Dragon", "태양", "TOP"); // => GD, 태양, TOP은 인자라고 합니다.
-
-// ====================================================================================================
+fn("G-Dragon", "태양", "대성"); // => GD, 태양, 대성은 인수/인자라고 부릅니다.
 
 // 1.2 선택적 매개변수
 // 자바스크립트에서 함수 매개변수가 제공되지 않으면 함수 내부의 인수값은 undefined으로 기본값이 설정된다는 것을 떠올려보세요.
 // 때로는 함수 매개변수를 제공할 필요가 없을 때 있고, undefined 값을 위해 의도적으로 사용할 수도 있습니다.
 // 타입스크립트가 이러한 선택적 매개변수에 인수를 제공하지 못하는 경우, 타입 오류를 보고하지 않았으면 할 때도 있습니다.
-// 타입스크립트에서는 선택적 객체 타입 속성과 유사하게 타입 애너테이션의 : 앞에 ?를 추가해 매개변수가 선택적이라고 표시합니다.
+// 타입스크립트에서는 선택적 객체 타입 속성과 유사하게 타입 애너테이션 : 앞에 ?를 추가해 매개변수가 선택적이라고 표시합니다.
 // 선택적 매개변수에는 항상 | undefined가 유니언 타입으로 추가되어 있습니다.
 
 function announceSong(song: string, singer?: string) {
-    console.log(`Song: ${song}`);
+    console.log("song: ", song);
 
     if (singer) {
-        console.log(`Singer: ${singer}`);
+        console.log("singer: ", singer);
     }
 }
-
 announceSong("봄여름가을겨울"); // OK
 announceSong("BAEBAE", undefined); // OK
 announceSong("거짓말", "하루하루"); // OK
@@ -64,36 +60,31 @@ announceSong("거짓말", "하루하루"); // OK
 // ?으로 표시된 선택적 매개변수가 아닌 매개변수는 값이 명시적으로 undefined일지라도 항상 제공되어야 합니다.
 
 function announceSongBy(song: string, singer: string | undefined) {
-    console.log(`Song: ${song}`);
+    console.log("song: ", song);
 
     if (singer) {
-        console.log(`Singer: ${singer}`);
+        console.log("singer: ", singer);
     }
 }
-
-announceSongBy("봄여름가을겨울"); // 2개의 인수가 필요한데 1개를 가져왔습니다.
+announceSongBy("봄여름가을겨울"); // Error: 2개의 인수가 필요한데 1개를 가져왔습니다.
 announceSongBy("BAEBAE", undefined); // OK
 announceSongBy("거짓말", "하루하루"); // OK
 
-// 함수에서 사용되는 모든 선택 매개변수는 마지막 매개변수여야 합니다.
-
-function announceSinger(singer?: string, song: string) {} // 필수 매개 변수는 선택적 매개 변수 뒤에 올 수 없습니다.
-
-// ====================================================================================================
+// 함수에서 사용되는 모든 선택적 매개변수는 마지막 매개변수여야 합니다.
+function announceSinger(singer?: string, song: string) {} // Error: 필수 매개 변수는 선택적 매개 변수 뒤에 올 수 없습니다.
 
 // 1.3 나머지 매개변수
-// ... 스프레드 연산자는 함수 선언의 마지막 매개변수에 위치하고, 해당 매개변수에서 시작해 함수에 전달된 '나머지' 인수가 모두 단일 배열에 저장되어야 함을 나타냅니다.
+// ... 스프레드 연산자는 함수 선언의 마지막 매개변수에 위치하고,
+// 해당 매개변수에서 시작해 함수에 전달된 '나머지' 인수가 모두 단일 배열에 저장되어야 함을 나타냅니다.
 
 function singAllTheSongs(singer: string, ...songs: string[]) {
     for (const song of songs) {
-        console.log(`${song}, by ${singer}`);
+        console.log(`${song}, by ${singer}.`);
     }
 }
-singAllTheSongs("Alicia Keys");
+singAllTheSongs("Alicia Keys"); // 결론적으로, 나머지 매개변수는 인자가 아예 전달되지 않았을 때 빈 배열로 처리되기 때문에, 인자를 명시적으로 생략하는 선택적 매개변수와는 다른 방식으로 동작합니다.
 singAllTheSongs("Lady Gaga", "Bad Romance", "Just Dance", "Poker Face");
-singAllTheSongs("Ella Fitzgerald", 2000); // 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
-
-// ====================================================================================================
+singAllTheSongs("Sting", 2000); // Error: 'number' 형식의 인수는 'string' 형식의 매개 변수에 할당될 수 없습니다.
 
 // 2. 반환 타입
 // 타입스크립트는 지각적(perceptive)입니다. 함수가 반환할 수 있는 가능한 모든 값을 이해하면 함수가 반환하는 타입을 알 수 있습니다.
@@ -112,10 +103,8 @@ function getSongAt(songs: string[], index: number) {
 }
 
 // 2.1 명시적 반환 타입
-// 변수와 마찬가지로 타입 애너테이션을 사용해 함수의 반환 타입을 명시적으로 선언하지 않는 것이 좋습니다.
-// 그러나 특히 함수에서 반환 타입을 명시적으로 선언하는 방식이 매우 유용할 때가 종종 있습니다.
-
-// 함수 선언 반환 타입 애너테이션은 매개변수 목록이 끝나는 ) 다음에 배치됩니다. 함수 선언의 경우는 { 앞에 배치됩니다.
+// 특히 함수에서 반환 타입을 명시적으로 선언하는 방식이 매우 유용할 때가 종종 있습니다.
+// 함수 선언 반환 타입 애너테이션은 매개변수 목록이 끝나는 ) 다음에 배치됩니다. 함수 선언의 경우 { 앞에 배치됩니다.
 
 function getTopics(topics: string[], count = 0): number {
     return topics.length ? getTopics(topics.slice(1), count + 1) : count;
@@ -123,7 +112,7 @@ function getTopics(topics: string[], count = 0): number {
 
 // 화살표 함수의 경우 => 앞에 배치됩니다.
 const getPosts = (posts: string[], count = 0): number => {
-    return posts.length ? getTopics(posts.slice(1), count + 1) : count;
+    return posts.length ? getPosts(posts.slice(1), count + 1) : count;
 };
 
 // 함수의 반환문이 함수의 반환 타입으로 할당할 수 없는 값을 반환하는 경우 타입스크립트는 할당 가능성 오류를 표시합니다.
@@ -140,8 +129,6 @@ function returnString(param: number): string | undefined {
             return undefined;
     }
 }
-
-// ====================================================================================================
 
 // 3. 함수 타입
 // 자바스크립트에서는 함수를 값으로 전달할 수 있습니다.
