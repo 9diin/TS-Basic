@@ -173,7 +173,7 @@ interface WithNumbericName extends WithNullableName {
 
 // 3.2 다중 인터페이스 확장
 // 타입스크립트의 인터페이스는 여러 개의 다른 인터페이스를 확장해서 선언할 수 있습니다.
-// 파생 인터페이스 이름에 있는 extends 키워드 뒤에 쉼포로 인터페이스르 이름을 구분해 사용하면 됩니다.
+// 파생 인터페이스 이름에 있는 extends 키워드 뒤에 쉼표로 인터페이스르 이름을 구분해 사용하면 됩니다.
 // 파생 인터페이스는 모든 기본 인터페이스의 모든 멤버를 받습니다.
 
 interface GivesNumber {
@@ -212,7 +212,7 @@ interface Merged {
 //     fromSecond: number;
 // }
 
-// let test: Merged = {
-//     fromFirst: "",
-//     fromSecond: 0,
-// };
+let test: Merged = {
+    fromFirst: "",
+    fromSecond: 0,
+};
